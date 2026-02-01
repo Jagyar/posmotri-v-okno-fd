@@ -65,7 +65,6 @@ ol {
   font-family: 'Oswald' , sans-serif;
   font-weight: 700;
   font-size: 75px;
-  font-style: bold;
   line-height: 94%;
   text-transform: uppercase;
 }
@@ -104,11 +103,14 @@ ol {
   font-style: normal;
   background-color: transparent;
   appearance: none;
-
 }
 
 .search-form__textfield::placeholder {
   color: rgb(255 255 255 / 0.7);
+}
+
+input[type="text"].search-form__textfield:focus {
+  outline: none;
 }
 
 .search-form__pseudo-checkbox {
@@ -140,7 +142,16 @@ ol {
   align-items: center;
   gap: 5px;
   width: fit-content;
+  padding: 1px;
   cursor: pointer;
+}
+
+.search-form__label:has(:focus) {
+  outline: none;
+}
+
+.search-form__label:has(:focus-visible) {
+  outline: 1px solid #fff;
 }
 
 .search-form__fieldset {
@@ -148,6 +159,7 @@ ol {
 }
 
 .button {
+  min-height: 34px;
   border: 1px solid #fff;
   color: #fff;
   font-family: 'Fira Sans Condensed', sans-serif;
@@ -155,6 +167,15 @@ ol {
   font-size: 18px;
   background-color: transparent;
   cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  border: none;
+  outline: 2px double #fff;
 }
 
 .button:hover {
@@ -169,12 +190,10 @@ ol {
 .search-form__submit-button {
   align-self: end;
   width: 194px;
-  height: 34px;
 }
 
 .more-button {
   width: 100%;
-  height: 34px;
 }
 
 .content__details {
@@ -236,7 +255,6 @@ ol {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 30px;
-  font-style: bold;
   line-height: 100%;
   letter-spacing: 0%;
   text-transform: uppercase;
@@ -245,12 +263,37 @@ ol {
 }
 
 .content__video-card-description {
+  max-height: 3.6em; /* для всех браузеров */
+  overflow: hidden;
   font-family: 'Fira Sans Condensed', sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 16.2px;
+  line-height: 0.9em;
   letter-spacing: 0%;
-  line-clamp: 4;
+  text-overflow: ellipsis;
+}
+
+/* для moz */
+@supports (-moz-line-clamp: 4) {
+  .content__video-card-description {
+    display: -moz-box;
+    max-height: none;
+    -moz-line-clamp: 4;
+    -moz-box-orient: vertical;
+  }
+}
+
+/* для остальных современных браузеров */
+@supports (-webkit-line-clamp: 4) or (line-clamp: 4) {
+  .content__video-card-description {
+    display: -webkit-box;
+    max-height: none;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    line-clamp: 4;
+    box-orient: vertical;
+  }
 }
 
 .result__video-container {
@@ -276,7 +319,7 @@ ol {
 }
 
 .content__card-link_current {
-  background-color: transparent;
+  background-color: #545050;
 }
 
 .content__card-link:active {
@@ -296,4 +339,3 @@ ol {
   clip-path: inset(50%);
   white-space: nowrap;
 }
-
